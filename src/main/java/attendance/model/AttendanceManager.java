@@ -11,4 +11,8 @@ public class AttendanceManager {
         manager.putIfAbsent(name, new TreeSet<>((a, b) -> a.date().compareTo(b.date())));
         manager.get(name).add(attendance);
     }
+
+    public boolean has(String name) {
+        return manager.containsKey(name);
+    }
 }
