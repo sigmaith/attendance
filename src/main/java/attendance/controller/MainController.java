@@ -3,7 +3,9 @@ package attendance.controller;
 import attendance.model.AttendanceManager;
 import attendance.view.InputView;
 
-import static attendance.view.InputView.getFunctionKey;
+import java.time.LocalTime;
+
+import static attendance.view.InputView.*;
 
 public class MainController {
     private AttendanceManager attendanceManager;
@@ -18,7 +20,7 @@ public class MainController {
                 case "2" -> updateAttendance(attendanceManager);
                 case "3" -> checkCrewAttendance(attendanceManager);
                 case "4" -> checkAtRiskCrew(attendanceManager);
-                default -> System.out.println("잘못된 입력입니다.");
+                default -> throw new IllegalArgumentException("[ERROR] 잘못된 형식을 입력하였습니다.");
             }
             function = getFunctionKey();
         }
@@ -26,10 +28,11 @@ public class MainController {
 
     private void checkAttendance(AttendanceManager attendanceManager) {
         // Implement the logic to check attendance
-        String nickname = InputView.inputNickname();
+        String nickname = inputNickname();
         if (!attendanceManager.has(nickname)) {
             throw new IllegalArgumentException("[ERROR] 등록되지 않은 닉네임입니다.");
         }
+        LocalTime localTime = inputAttendanceTime();
     }
 
     private void updateAttendance(AttendanceManager attendanceManager) {

@@ -1,5 +1,8 @@
 package attendance.view;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
 public class InputView {
@@ -18,5 +21,15 @@ public class InputView {
     public static String inputNickname() {
         System.out.println("닉네임을 입력해주세요.");
         return readLine();
+    }
+
+    public static LocalTime inputAttendanceTime() {
+        System.out.println("등교 시간을 입력해 주세요.");
+        try {
+            LocalTime inputTime = LocalTime.parse(readLine(), DateTimeFormatter.ofPattern("HH:mm"));
+            return inputTime;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("[ERROR] 잘못된 형식을 입력하였습니다.");
+        }
     }
 }
